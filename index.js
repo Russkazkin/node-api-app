@@ -4,12 +4,10 @@
 
 //Dependencies
 const http = require('http');
-const url = require('url');
+const { URL } = require('url');
 
 const server = http.createServer(((req, res) => {
-    const parsedUrl = url.parse(req.url, true);
-    const path = parsedUrl.pathname;
-    const trimmedPath = path.replace(/^\/+|\/$/g, '');
+    const trimmedPath = req.url.replace(/^\/+|\/$/g, '');
     res.end('Hello World!\n');
     console.log('Request received on path: ' + trimmedPath);
 }));

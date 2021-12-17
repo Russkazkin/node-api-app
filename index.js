@@ -4,13 +4,16 @@
 
 //Dependencies
 const http = require('http');
-const { URL } = require('url');
+const url = require('url');
 
 const server = http.createServer(((req, res) => {
-    const path = req.url.replace(/^\/+|\/$/g, '');
+    const parsedUrl = url.parse(req.url, true);
+    const path = parsedUrl.pathname;
+    const trimmedPath = path.replace(/^\/+|\/$/g, '');
     const method = req.method.toUpperCase();
+    const queryStringObject = parsedUrl.query;
     res.end('Hello World!\n');
-    console.log(`Request received on path ${path} with ${method} method`);
+    console.log(`Request received on path ${trimmedPath} with ${method} method and`, queryStringObject);
 }));
 
 server.listen(3000, () => {

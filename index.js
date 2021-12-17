@@ -7,9 +7,10 @@ const http = require('http');
 const { URL } = require('url');
 
 const server = http.createServer(((req, res) => {
-    const trimmedPath = req.url.replace(/^\/+|\/$/g, '');
+    const path = req.url.replace(/^\/+|\/$/g, '');
+    const method = req.method.toUpperCase();
     res.end('Hello World!\n');
-    console.log('Request received on path: ' + trimmedPath);
+    console.log(`Request received on path ${path} with ${method} method`);
 }));
 
 server.listen(3000, () => {

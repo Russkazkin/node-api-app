@@ -12,8 +12,9 @@ const server = http.createServer(((req, res) => {
     const trimmedPath = path.replace(/^\/+|\/$/g, '');
     const method = req.method.toUpperCase();
     const queryStringObject = parsedUrl.query;
+    const headersObject = req.headers;
     res.end('Hello World!\n');
-    console.log(`Request received on path ${trimmedPath} with ${method} method and`, queryStringObject);
+    console.log(headersObject, 'headers');
 }));
 
 server.listen(3000, () => {

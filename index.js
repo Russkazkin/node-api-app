@@ -4,12 +4,37 @@
 
 //Dependencies
 const http = require('http');
+const https = require('https');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const buffer = require("buffer");
 const config = require('./config');
+const fs = require('fs');
 
-const server = http.createServer(((req, res) => {
+const httpServer = http.createServer((req, res) => {
+    unifiedServer(req, res);
+});
+
+httpServer.listen(config.httpPort, () => {
+    console.log(`The server is listening on port ${config.httpPort} in ${config.envName.toUpperCase()} mode.`);
+});
+
+const httpServerOptions = {
+    key: fs.readFileSync('./https/key.pem'),
+    cert: fs.readFileSync('./https/cert.pem'),
+};
+
+const httpsServer = https.createServer(httpServerOptions, (req, res) => {
+    unifiedServer(req, res);
+});
+
+httpsServer.listen(config.httpsPort, () => {
+    console.log(`The server is listening on port ${config.httpsPort} in ${config.envName.toUpperCase()} mode.`);
+});
+
+
+
+const unifiedServer = (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const path = parsedUrl.pathname;
     const trimmedPath = path.replace(/^\/+|\/$/g, '');
@@ -40,11 +65,7 @@ const server = http.createServer(((req, res) => {
             console.log(statusCode, 'status code');
         });
     });
-}));
-
-server.listen(config.port, () => {
-    console.log(`The server is listening on port ${config.port} in ${config.envName.toUpperCase()} mode.`);
-});
+};
 
 const handlers = {};
 

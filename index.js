@@ -10,6 +10,11 @@ const { StringDecoder } = require('string_decoder');
 const buffer = require("buffer");
 const config = require('./config');
 const fs = require('fs');
+const _data = require('./lib/data');
+
+_data.create('test', 'testFile', {foo: 'bar'}, error => {
+    console.log('An error has occurred: ', error);
+});
 
 const httpServer = http.createServer((req, res) => {
     unifiedServer(req, res);

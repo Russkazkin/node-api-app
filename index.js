@@ -12,10 +12,7 @@ const config = require('./config');
 const fs = require('fs');
 const _data = require('./lib/data');
 
-_data.read('test', 'testFile', (error, data) => {
-    console.log('An error has occurred: ', error);
-    console.log(data);
-});
+_data.readPromise('test', 'testFile').then(data => console.log(data)).catch(error => console.log(error));
 
 const httpServer = http.createServer((req, res) => {
     unifiedServer(req, res);

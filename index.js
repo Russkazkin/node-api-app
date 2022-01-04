@@ -12,7 +12,8 @@ const config = require('./config');
 const fs = require('fs');
 const _data = require('./lib/data');
 
-_data.readPromise('test', 'testFile').then(data => console.log(data)).catch(error => console.log(error));
+_data.readPromise('test', 'testFile1').then(data => console.log(data)).catch(error => console.error(error));
+_data.writePromise('test', 'testFile1', {test: 'async'}).then(() => console.log('Write was successfully')).catch(error => console.error(error));
 
 const httpServer = http.createServer((req, res) => {
     unifiedServer(req, res);

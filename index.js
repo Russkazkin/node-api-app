@@ -14,7 +14,8 @@ const _data = require('./lib/data');
 
 //_data.readPromise('test', 'testFile').then(data => console.log(data)).catch(error => console.error(error));
 //_data.writePromise('test', 'testFile', {test: 'async'}).then(() => console.log('Write was successfully')).catch(error => console.error(error));
-_data.deletePromise('test', 'testFile').then(() => console.log('Delete was successfully.')).catch(error => console.error(error));
+_data.updatePromise('test', 'testFile', {test: 'updated'}).then(() => console.log('Update was successfully')).catch(error => console.error(error));
+//_data.deletePromise('test', 'testFile').then(() => console.log('Delete was successfully.')).catch(error => console.error(error));
 
 const httpServer = http.createServer((req, res) => {
     unifiedServer(req, res);

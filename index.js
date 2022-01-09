@@ -10,6 +10,7 @@ const { StringDecoder } = require('string_decoder');
 const buffer = require("buffer");
 const config = require('./config');
 const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
 
 const httpServer = http.createServer((req, res) => {
     unifiedServer(req, res);
@@ -52,7 +53,7 @@ const unifiedServer = (req, res) => {
             queryStringObject,
             method,
             headers: headersObject,
-            payload: buffer,
+            payload: helpers.parseJsonToObject(buffer),
         };
         chosenHandler(data, (statusCode, payload) => {
             statusCode = typeof(statusCode) === "number" ? statusCode : 200;

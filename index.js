@@ -5,6 +5,7 @@
 //Dependencies
 const http = require('http');
 const https = require('https');
+const fs = require('fs');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const buffer = require("buffer");
@@ -53,7 +54,7 @@ const unifiedServer = (req, res) => {
             queryStringObject,
             method,
             headers: headersObject,
-            payload: helpers.parseJsonToObject(buffer),
+            payload: helpers.parseJsonToObject(payload),
         };
         chosenHandler(data, (statusCode, payload) => {
             statusCode = typeof(statusCode) === "number" ? statusCode : 200;

@@ -58,9 +58,10 @@ const unifiedServer = (req, res) => {
         };
         chosenHandler(data, (statusCode, payload) => {
             statusCode = typeof(statusCode) === "number" ? statusCode : 200;
+            const payloadString = typeof(payload) === "string" ? payload : JSON.stringify(payload);
             res.setHeader('Content-Type', 'application/json');
             res.writeHead(statusCode);
-            res.end(payload);
+            res.end(payloadString);
             console.log(payload, 'payload');
             console.log(statusCode, 'status code');
         });

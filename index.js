@@ -8,7 +8,6 @@ const https = require('https');
 const fs = require('fs');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
-const buffer = require("buffer");
 const config = require('./config');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
